@@ -1,0 +1,8 @@
+image: yen3/docker-ubuntu-novnc-arm64v8:latest
+manifests:
+  -
+    image: yen3/docker-ubuntu-novnc-arm64v8:amd64
+    platform:
+      architecture: amd64
+      os: linux
+
