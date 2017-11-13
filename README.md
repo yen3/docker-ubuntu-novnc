@@ -20,6 +20,11 @@ This will start a container in a detached session in the background and will exp
 
 to access the Ubuntu desktop.
 
+## Original repo
+
+* [docker-ubuntu-vnc-desktop ](https://github.com/fcwu/docker-ubuntu-vnc-desktop)
+* [docker-ubuntu-novnc-armhf ](https://github.com/ColinHuang/docker-ubuntu-novnc-armhf)
+
 
 ## Reference
 
