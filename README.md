@@ -20,3 +20,8 @@ This will start a container in a detached session in the background and will exp
 
 to access the Ubuntu desktop.
 
+
+## Reference
+
+* https://github.com/estesp/manifest-tool
+* https://container-solutions.com/multi-arch-docker-images/
