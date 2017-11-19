@@ -1,3 +1,5 @@
+IMAGE_NAME=yen3/ubntu-novnc
+
 # support Darwin and Linux
 PLATFORM=$(shell uname)
 
@@ -18,9 +20,9 @@ all: amd64 arm aarch64
 
 push: get-manifest-tool
 	@# Push image first
-	docker push yen3/docker-ubuntu-novnc:amd64
-	docker push yen3/docker-ubuntu-novnc:arm64
-	docker push yen3/docker-ubuntu-novnc:arm32v7
+	docker push $(IMAGE_NAME):amd64
+	docker push $(IMAGE_NAME):arm64
+	docker push $(IMAGE_NAME):arm32v7
 	@# Create the multi-arch docker image
 ifeq ($(PLATFORM),Darwin)
 	@# Check the arguement is not empty. If yes, the user does not set username
@@ -33,7 +35,7 @@ else
 endif
 
 amd64:
-	docker build -t yen3/docker-ubuntu-novnc:amd64 .
+	docker build -t $(IMAGE_NAME):amd64 .
 
 arm:
 ifeq ($(PLATFORM),Linux)
@@ -44,7 +46,7 @@ ifeq (,$(wildcard ./qemu-arm-static))
 endif
 endif
 	@# build
-	docker build -t yen3/docker-ubuntu-novnc:arm32v7 -f Dockerfile_arm32v7 .
+	docker build -t $(IMAGE_NAME):arm32v7 -f Dockerfile_arm32v7 .
 ifeq ($(PLATFORM),Linux)
 	@# Clear binfmt
 	docker run --privileged yen3/binfmt-register clear arm
@@ -59,7 +61,7 @@ ifeq (,$(wildcard ./qemu-aarch64-static))
 endif
 endif
 	@# build
-	docker build -t yen3/docker-ubuntu-novnc:arm64 -f Dockerfile_arm64v8 .
+	docker build -t $(IMAGE_NAME):arm64 -f Dockerfile_arm64v8 .
 ifeq ($(PLATFORM),Linux)
 	@# Clear binfmt
 	docker run --privileged yen3/binfmt-register clear aarch64
