@@ -41,9 +41,6 @@ arm:
 ifeq ($(PLATFORM),Linux)
 	@# Register binfmt
 	docker run --privileged yen3/binfmt-register set arm
-ifeq (,$(wildcard ./qemu-arm-static))
-	docker run yen3/binfmt-register get arm > qemu-arm-static
-endif
 endif
 	@# build
 	docker build -t $(IMAGE_NAME):arm32v7 -f Dockerfile_arm32v7 .
@@ -56,9 +53,6 @@ aarch64:
 ifeq ($(PLATFORM),Linux)
 	@# Register binfmt
 	docker run --privileged yen3/binfmt-register set aarch64
-ifeq (,$(wildcard ./qemu-aarch64-static))
-	docker run yen3/binfmt-register get aarch64 > qemu-aarch64-static
-endif
 endif
 	@# build
 	docker build -t $(IMAGE_NAME):arm64 -f Dockerfile_arm64v8 .
@@ -82,6 +76,4 @@ endif
 endif
 
 clean:
-	rm -f qemu-arm-static
-	rm -f qemu-aarch64-static
 	rm -f $(MANIFEST_TOOL)
