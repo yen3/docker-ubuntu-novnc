@@ -1,4 +1,4 @@
-IMAGE_NAME=yen3/ubntu-novnc
+IMAGE_NAME=yen3/ubuntu-novnc
 
 # support Darwin and Linux
 PLATFORM=$(shell uname)
