@@ -20,6 +20,18 @@ This will start a container in a detached session in the background and will exp
 
 to access the Ubuntu desktop.
 
+## Build the image
+
+* Requirement
+    * wget
+    * docker with privileged access
+* Command
+
+    ```
+    make
+    ```
+    
+
 ## Original repo
 
 * [docker-ubuntu-vnc-desktop ](https://github.com/fcwu/docker-ubuntu-vnc-desktop)
