@@ -1,10 +1,15 @@
 # vim: set ft=dockerfile:
+FROM yen3/binfmt-register:0.1 as builder
 
 FROM arm64v8/ubuntu:16.04
 MAINTAINER yen3 <yen3@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV HOME /root
+
+# Add qemu binary to run the inmage in x86-64 platform
+# The binary is unused in macOS docker
+COPY --from=builder /qemu/qemu-aarch64-static /usr/local/bin/qemu-aarch64-static
 
 RUN apt-get update \
     && apt-get install -y --force-yes --no-install-recommends supervisor \
@@ -31,6 +36,9 @@ ADD nginx.conf /etc/nginx/sites-enabled/default
 ADD startup.sh /
 ADD supervisord.conf /etc/supervisor/conf.d/
 ADD doro-lxde-wallpapers /usr/share/doro-lxde-wallpapers/
+
+# Remove the binary. It's unused in the final result
+RUN rm -f /usr/local/bin/qemu-aarch64-static
 
 EXPOSE 6080
 WORKDIR /root
