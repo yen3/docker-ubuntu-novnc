@@ -12,7 +12,7 @@ noVNC is a HTML5 VNC client that runs well in any modern browser including mobil
 
 The recommended way to run this container looks like this:
 
-    $ docker run -d -p 6080:6080 yen3/docker-ubuntu-novnc
+    $ docker run -d -p 6080:6080 yen3/ubuntu-novnc
 
 This will start a container in a detached session in the background and will expose its web interface to port 6080 of the host. Now you can browse to:
 
