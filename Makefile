@@ -25,12 +25,15 @@ push: get-manifest-tool
 	docker push $(IMAGE_NAME):arm32v7
 	@# Create the multi-arch docker image
 ifeq ($(PLATFORM),Darwin)
+	@# Darwin
+	@#
 	@# Check the arguement is not empty. If yes, the user does not set username
 	@# and password
 ifneq ($(MACOS),)
 	$(MANIFEST_TOOL) $(MACOS) push from-spec ./manifest.yml
 endif
 else
+	@# Linux
 	$(MANIFEST_TOOL) push from-spec ./manifest.yml
 endif
 
@@ -38,25 +41,31 @@ amd64:
 	docker build -t $(IMAGE_NAME):amd64 .
 
 arm:
-ifeq ($(PLATFORM),Linux)
+ifeq ($(PLATFORM),Darwin)
+	@# Darwin
+	docker build -t $(IMAGE_NAME):arm32v7 -f Dockerfile_arm32v7 .
+else
+	@# Linux
+	@#
 	@# Register binfmt
 	docker run --privileged yen3/binfmt-register set arm
-endif
 	@# build
 	docker build -t $(IMAGE_NAME):arm32v7 -f Dockerfile_arm32v7 .
-ifeq ($(PLATFORM),Linux)
 	@# Clear binfmt
 	docker run --privileged yen3/binfmt-register clear arm
 endif
 
 aarch64:
-ifeq ($(PLATFORM),Linux)
+ifeq ($(PLATFORM),Darwin)
+	@# Darwin
+	docker build -t $(IMAGE_NAME):arm64 -f Dockerfile_arm64v8 .
+else
+	@# Linux
+	@#
 	@# Register binfmt
 	docker run --privileged yen3/binfmt-register set aarch64
-endif
 	@# build
 	docker build -t $(IMAGE_NAME):arm64 -f Dockerfile_arm64v8 .
-ifeq ($(PLATFORM),Linux)
 	@# Clear binfmt
 	docker run --privileged yen3/binfmt-register clear aarch64
 endif
