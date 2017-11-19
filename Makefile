@@ -12,7 +12,7 @@ MANIFEST_TOOL=./manifest-tool
 #         push from-spec ./manifest.yml
 MACOS=
 
-.PHONY: all push amd64 arm aarch64
+.PHONY: all push amd64 arm aarch64 get-manifest-tool clean
 
 all: amd64 arm aarch64
 
@@ -79,7 +79,7 @@ endif
 	chmod +x $(MANIFEST_TOOL)
 endif
 
-clear:
+clean:
 	rm -f qemu-arm-static
 	rm -f qemu-aarch64-static
 	rm -f $(MANIFEST_TOOL)
